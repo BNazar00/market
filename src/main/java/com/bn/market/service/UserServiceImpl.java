@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	public User save(UserRegistrationDto registrationDto) {
 		User user = new User(registrationDto.getFirstName(),
 				registrationDto.getLastName(), registrationDto.getEmail(),
-				passwordEncoder.encode(registrationDto.getPassword()), List.of(new Role("ROLE_USER")));
+				passwordEncoder.encode(registrationDto.getPassword()), Set.of(new Role("ROLE_USER")));
 
 		return userRepository.save(user);
 	}
@@ -48,8 +49,7 @@ public class UserServiceImpl implements UserService {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
 	}
 
-	@Override
-	public List<User> getAll() {
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 

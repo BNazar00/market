@@ -2,6 +2,8 @@ package com.bn.market.entities;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -29,13 +31,22 @@ public class User {
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 
-	private Collection<Role> roles;
+	private Set<Role> roles;
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
+			fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "product_list",
+			joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id")
+	)
+	private Set<Product> productList;
 
 	public User() {
 
 	}
 
-	public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+	public User(String firstName, String lastName, String email, String password, Set<Role> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -92,14 +103,16 @@ public class User {
 		this.amountOfMoney = amountOfMoney;
 	}
 
-	public Collection<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
+	public Set<Product> getProductList() {
+		return productList;
+	}
 	@Override
 	public String toString() {
 		return "User{" +
