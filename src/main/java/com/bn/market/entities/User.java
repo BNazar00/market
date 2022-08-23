@@ -1,4 +1,4 @@
-package com.bn.market.model;
+package com.bn.market.entities;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -100,4 +100,14 @@ public class User {
 		this.roles = roles;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", roles=" + roles +
+				'}';
+	}
 }

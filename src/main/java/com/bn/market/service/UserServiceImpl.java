@@ -1,7 +1,7 @@
 package com.bn.market.service;
 
-import com.bn.market.model.Role;
-import com.bn.market.model.User;
+import com.bn.market.entities.Role;
+import com.bn.market.entities.User;
 import com.bn.market.repository.UserRepository;
 import com.bn.market.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,26 +14,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	public UserServiceImpl(UserRepository userRepository) {
-		super();
-		this.userRepository = userRepository;
-	}
-
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
 		User user = new User(registrationDto.getFirstName(),
 				registrationDto.getLastName(), registrationDto.getEmail(),
-				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
+				passwordEncoder.encode(registrationDto.getPassword()), List.of(new Role("ROLE_USER")));
 
 		return userRepository.save(user);
 	}
@@ -49,7 +45,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
 	}
 
+	@Override
+	public List<User> getAll() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public List<User> getAllAdmins() {
+		return userRepository.findAll().stream()
+				.filter(user -> user.getRoles().contains(new Role("ROLE_ADMIN")))
+				.toList();
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return userRepository.findAll().stream()
+				.filter(user -> user.getRoles().contains(new Role("ROLE_USER")))
+				.toList();
+	}
+
+	public User getUserById(long id) {
+		return userRepository.getUserById(id);
+	}
 }

@@ -1,10 +1,16 @@
 package com.bn.market.repository;
 
-import com.bn.market.model.User;
+import com.bn.market.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	User findByEmail(String email);
+
+	List<User> findAll();
+
+	User getUserById(long id);
 }

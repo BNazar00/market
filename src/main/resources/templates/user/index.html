@@ -17,7 +17,7 @@
 		<h1>Registration and Login with Spring Boot, Spring Security,
 			Thymeleaf, Hibernate and MySQL</h1>
 		Welcome <span sec:authentication="principal.username"> User</span>
-
+<!--        <p th:text="${name}"></p>-->
 	</div>
     <ul class="container">
         <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
