@@ -12,11 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -69,5 +67,16 @@ public class UserServiceImpl implements UserService {
 
 	public User getUserById(long id) {
 		return userRepository.getUserById(id);
+	}
+
+	@Override
+	public void updateUser(long id, User user) {
+		User targetUser = userRepository.getUserById(id);
+
+		targetUser.setFirstName(user.getFirstName());
+		targetUser.setLastName(user.getLastName());
+		targetUser.setAmountOfMoney(user.getAmountOfMoney());
+
+		userRepository.save(targetUser);
 	}
 }

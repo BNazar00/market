@@ -1,9 +1,8 @@
 package com.bn.market.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -12,7 +11,7 @@ public class Product {
 	@Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	@Column
 	private String name;
 	@Column
@@ -34,7 +33,7 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -75,5 +74,18 @@ public class Product {
 		return "id=" + id +
 				", name='" + name + '\'' +
 				", price=" + price;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Product product = (Product) o;
+		return id == product.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }

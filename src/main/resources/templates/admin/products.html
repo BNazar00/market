@@ -25,6 +25,9 @@
     <div>
         <a href="">Products</a>
     </div>
+    <div>
+        <a href="add_new_product">Add new product</a>
+    </div>
     <div th:each="product : ${products}">
         <a th:href="@{product/{id}(id=${product.getId()})}" th:text="${product.getName()}">product</a>
     </div>

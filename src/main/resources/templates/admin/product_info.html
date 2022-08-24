@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/admin/product/{id}(id=${product.getId()})}" th:object="${product}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="price">Enter price: </label>
+    <input type="text" th:field="*{price}" id="price"/>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+<form th:method="delete" th:action="@{/admin/product/{id}(id=${product.getId()})}" th:object="${product}">
+    <input type="submit" value="Delete">
+</form>
+</body>
+</html>
