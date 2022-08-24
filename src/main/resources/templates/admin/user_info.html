@@ -6,15 +6,23 @@
 </head>
 <body>
 <form th:method="PATCH" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
-    <h3 th:text="${user.getEmail}">email</h3>
-    <label for="firstName">Enter firstName: </label>
+    <h3 th:text="${email}">email</h3>
+    <label for="firstName">Enter first name: </label>
     <input type="text" th:field="*{firstName}" id="firstName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</div>
+
     <br/>
-    <label for="lastName">Enter lastName: </label>
+    <label for="lastName">Enter surname: </label>
     <input type="text" th:field="*{lastName}" id="lastName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Surname Error</div>
+
     <br/>
     <label for="amountOfMoney">Enter amount of money: </label>
     <input type="text" th:field="*{amountOfMoney}" id="amountOfMoney"/>
+    <div style="color:red" th:if="${#fields.hasErrors('amountOfMoney')}" th:errors="*{amountOfMoney}">AmountOfMoney
+        Error
+    </div>
+
     <br/>
     <input type="submit" value="Update!"/>
 </form>

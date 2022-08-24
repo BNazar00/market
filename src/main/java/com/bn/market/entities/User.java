@@ -1,6 +1,10 @@
 package com.bn.market.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -12,16 +16,23 @@ public class User {
 	private Long id;
 
 	@Column(name = "first_name")
+	@Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+	@NotBlank(message = "Name should not be empty")
 	private String firstName;
 
 	@Column(name = "last_name")
+	@Size(min = 2, max = 30, message = "Surname should be between 2 and 30 characters")
+	@NotBlank(message = "Surname should not be empty")
 	private String lastName;
 
+	@Email
 	private String email;
 
 	private String password;
 
 	@Column(name = "amount_of_money")
+	@Min(value = 0, message = "Amount of money should be positive")
+//	@NotBlank(message = "Amount of money should not be empty")
 	private int amountOfMoney;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -35,8 +46,8 @@ public class User {
 			fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "product_list",
-			joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "product_id",referencedColumnName = "id")
+			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
 	)
 	private Set<Product> productList;
 
@@ -108,9 +119,11 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
 	public Set<Product> getProductList() {
 		return productList;
 	}
+
 	@Override
 	public String toString() {
 		return "User{" +

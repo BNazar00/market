@@ -18,7 +18,14 @@
 			Thymeleaf, Hibernate and MySQL</h1>
 		Welcome <span sec:authentication="principal.username"> User</span>
 <!--        <p th:text="${name}"></p>-->
-	</div>
+        <div>
+            <a href="">Products</a>
+        </div>
+        <div th:each="product : ${products}">
+            <a th:href="@{product/{id}(id=${product.getId()})}" th:text="${product.getName()}">product</a>
+        </div>
+
+    </div>
     <ul class="container">
         <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
     </ul>

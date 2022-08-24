@@ -1,19 +1,20 @@
 package com.bn.market.web.dto;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class UserRegistrationDto {
-	@NotEmpty(message = "Name should not be empty")
+	@NotBlank(message = "Name should not be empty")
 	@Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
 	private String firstName;
-	@NotEmpty(message = "Surname should not be empty")
-	@Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+	@NotBlank(message = "Surname should not be empty")
+	@Size(min = 2, max = 30, message = "Surname should be between 2 and 30 characters")
 	private String lastName;
 	@Email
 	private String email;
-	@NotEmpty
+	@NotBlank
 	@Size(min = 4, max = 30, message = "Password should be between 4 and 30 characters")
 	private String password;
 

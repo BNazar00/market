@@ -1,6 +1,9 @@
 package com.bn.market.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -13,8 +16,12 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column
+	@Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+	@NotBlank(message = "Name should not be empty")
 	private String name;
 	@Column
+//	@NotBlank(message = "Price should not be empty")
+	@Min(value = 1, message = "Price should be positive")
 	private int price;
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
 			fetch = FetchType.EAGER)
