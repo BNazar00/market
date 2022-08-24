@@ -2,6 +2,7 @@ package com.bn.market.service;
 
 import com.bn.market.entities.Role;
 import com.bn.market.entities.User;
+import com.bn.market.repository.RoleRepository;
 import com.bn.market.repository.UserRepository;
 import com.bn.market.web.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,16 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Autowired
+	private RoleRepository roleRepository;
+
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
 		User user = new User(registrationDto.getFirstName(),
 				registrationDto.getLastName(), registrationDto.getEmail(),
-				passwordEncoder.encode(registrationDto.getPassword()), Set.of(new Role("ROLE_USER")));
+				passwordEncoder.encode(registrationDto.getPassword()), Set.of(roleRepository.getRoleByName("ROLE_USER")));
 
 		return userRepository.save(user);
 	}
