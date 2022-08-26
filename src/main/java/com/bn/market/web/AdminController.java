@@ -46,7 +46,12 @@ public class AdminController {
 			model.addAttribute("email", currentUser.getEmail());
 			return "admin/user_info";
 		}
-		userService.updateUser(id, user);
+		userService.updateUserById(id, user);
+		return "redirect:/admin/users";
+	}
+	@DeleteMapping("user/{id}")
+	public String deleteUser(@PathVariable long id) {
+		userService.deleteUserById(id);
 		return "redirect:/admin/users";
 	}
 

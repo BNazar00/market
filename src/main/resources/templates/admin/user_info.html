@@ -26,5 +26,10 @@
     <br/>
     <input type="submit" value="Update!"/>
 </form>
+
+<form th:method="delete" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
+    <input type="submit" value="Delete">
+</form>
+
 </body>
 </html>

@@ -17,9 +17,10 @@
 		<h1>Registration and Login with Spring Boot, Spring Security,
 			Thymeleaf, Hibernate and MySQL</h1>
 		Welcome <span sec:authentication="principal.username"> User</span>
-<!--        <p th:text="${name}"></p>-->
         <div>
             <a href="">Products</a>
+            <br>
+            <a href="product-list">My product list</a>
         </div>
         <div th:each="product : ${products}">
             <a th:href="@{product/{id}(id=${product.getId()})}" th:text="${product.getName()}">product</a>

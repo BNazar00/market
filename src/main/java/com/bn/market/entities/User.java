@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -122,6 +123,15 @@ public class User {
 
 	public Set<Product> getProductList() {
 		return productList;
+	}
+
+	public void buyProduct(Product product) {
+		amountOfMoney -= product.getPrice();
+
+		if (productList == null)
+			productList = new HashSet<>();
+
+		productList.add(product);
 	}
 
 	@Override

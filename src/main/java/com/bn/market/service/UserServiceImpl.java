@@ -1,7 +1,9 @@
 package com.bn.market.service;
 
+import com.bn.market.entities.Product;
 import com.bn.market.entities.Role;
 import com.bn.market.entities.User;
+import com.bn.market.repository.ProductRepository;
 import com.bn.market.repository.RoleRepository;
 import com.bn.market.repository.UserRepository;
 import com.bn.market.web.dto.UserRegistrationDto;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -74,13 +80,37 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(long id, User user) {
+	public void updateUserById(long id, User newUserEntity) {
 		User targetUser = userRepository.getUserById(id);
 
-		targetUser.setFirstName(user.getFirstName());
-		targetUser.setLastName(user.getLastName());
-		targetUser.setAmountOfMoney(user.getAmountOfMoney());
+		targetUser.setFirstName(newUserEntity.getFirstName());
+		targetUser.setLastName(newUserEntity.getLastName());
+		targetUser.setAmountOfMoney(newUserEntity.getAmountOfMoney());
 
 		userRepository.save(targetUser);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	@Transactional
+	public void buyProduct(long userId, long productId) {
+		User user = userRepository.getUserById(userId);
+		Product product = productRepository.getProductById(productId);
+
+		user.buyProduct(product);
+	}
+
+	@Override
+	public Set<Product> getUserProductList(long id) {
+		return userRepository.getUserById(id).getProductList();
+	}
+
+	@Override
+	public void deleteUserById(long id) {
+		userRepository.deleteById(id);
 	}
 }
