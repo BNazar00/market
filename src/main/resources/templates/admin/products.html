@@ -1,40 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Market</title>
-
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
-
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/styles/css/reset.css" rel='stylesheet'>
+    <link href="/styles/css/main.min.css" rel="stylesheet">
+    <link href="../../static/styles/css/reset.css" rel='stylesheet'>
+    <link href="../../static/styles/css/main.min.css" rel="stylesheet">
 </head>
+
 <body>
+    <header>
+        <div class="header-container">
+            <span sec:authentication="principal.username"> User</span>
+            <span>| </span><span style="color: red;">ADMIN</span>
+        </div>
+        <a class="logout-btn" th:href="@{/logout}">Logout <i class="fa fa-sign-out"></i></a>
 
-<div class="container">
-    <h1>Registration and Login with Spring Boot, Spring Security,
-        Thymeleaf, Hibernate and MySQL</h1>
-    Welcome <span sec:authentication="principal.username"> User</span>
+    </header>
 
+    <div class="major-block">
+        <section class="left-sec">
+            <div class="left-sec_block">
+                <a href="/admin/users">Users</a>
+                <a class="active" href="">Products</a>
+            </div>
+        </section>
+        <section class="right-sec">
+            <div class="entities">
+                <div class="entity-item-wrapper" th:each="product : ${products}">
+                    <div class="entity-item">
+                        <a class="entity-link" th:href="@{product/{id}(id=${product.getId()})}" th:text="${product.getName()}">product</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="new-product-btn">
+        <a href="add_new_product">
+            <button class="icon-btn sticky-add-btn">
+				<div class="add-icon"></div>
+				<div class="btn-txt">Add product</div>
+			</button>
+        </a>
+    </div>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 
-    <div>
-        <a href="users">Users</a>
-    </div>
-    <div>
-        <a href="">Products</a>
-    </div>
-    <div>
-        <a href="add_new_product">Add new product</a>
-    </div>
-    <div th:each="product : ${products}">
-        <a th:href="@{product/{id}(id=${product.getId()})}" th:text="${product.getName()}">product</a>
-    </div>
+    <script>
+        $(".entity-item").mousemove(function(e, btn) {
+            const x = e.pageX - this.offsetLeft
+            const y = e.pageY - this.offsetTop
 
-</div>
-<ul class="container">
-    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-</ul>
+            this.style.setProperty('--x', x + 'px')
+            this.style.setProperty('--y', y + 'px')
+        });
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,AAAC,CACL,KAAK,CAAE,IAAI,CAAG",
+    "sources": [
+        "sass/new_entity.sass"
+    ],
+    "names": [],
+    "file": "new_entity.min.css"
+}

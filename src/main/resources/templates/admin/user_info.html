@@ -1,35 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <meta charset="UTF-8">
     <title>Market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/styles/css/reset.css" rel='stylesheet'>
+    <link href="/styles/css/main.min.css" rel="stylesheet">
+    <link href="../../static/styles/css/reset.css" rel='stylesheet'>
+    <link href="../../static/styles/css/main.min.css" rel="stylesheet">
 </head>
+
 <body>
-<form th:method="PATCH" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
-    <h3 th:text="${email}">email</h3>
-    <label for="firstName">Enter first name: </label>
-    <input type="text" th:field="*{firstName}" id="firstName"/>
-    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</div>
+    <header>
+        <div class="header-container">
+            <span sec:authentication="principal.username"> User</span>
+            <span>| </span><span style="color: red;">ADMIN</span>
+        </div>
+        <a class="logout-btn" th:href="@{/logout}">Logout <i class="fa fa-sign-out"></i></a>
 
-    <br/>
-    <label for="lastName">Enter surname: </label>
-    <input type="text" th:field="*{lastName}" id="lastName"/>
-    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Surname Error</div>
+    </header>
 
-    <br/>
-    <label for="amountOfMoney">Enter amount of money: </label>
-    <input type="text" th:field="*{amountOfMoney}" id="amountOfMoney"/>
-    <div style="color:red" th:if="${#fields.hasErrors('amountOfMoney')}" th:errors="*{amountOfMoney}">AmountOfMoney
-        Error
+    <div class="major-block">
+        <section class="left-sec">
+            <div class="left-sec_block">
+                <a class="active" href="/admin/users">Users</a>
+                <a href="/admin/products">Products</a>
+            </div>
+        </section>
+        <section class="right-sec">
+            <form th:method="PATCH" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}" id="wrap" class="input-content">
+                <h2 th:text="${'Change user ' + email}">Change user: email@gmail.com</h2>
+                <div class="input-content-wrap">
+                    <dl class="inputbox">
+                        <dt class="inputbox-title">User's first name:</dt>
+                        <dd class="inputbox-content">
+                            <input th:field="*{firstName}" id="firstName" type="text" required />
+                            <label for="firstName">name:</label>
+                            <span class="underline"></span>
+                        </dd>
+                        <div class="error-message" style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
+                    </dl>
+                    <dl class="inputbox">
+                        <dt class="inputbox-title">User's surname:</dt>
+                        <dd class="inputbox-content">
+                            <input th:field="*{lastName}" id="lastName" type="text" required />
+                            <label for="lastName">surname:</label>
+                            <span class="underline"></span>
+                        </dd>
+                        <div class="error-message" style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Surname Error</div>
+                    </dl>
+                    <dl class="inputbox">
+                        <dt class="inputbox-title">User's amount of money:</dt>
+                        <dd class="inputbox-content">
+                            <input th:field="*{amountOfMoney}" id="amountOfMoney" type="text" required />
+                            <label for="amountOfMoney">amount of money:</label>
+                            <span class="underline"></span>
+                        </dd>
+                        <div class="error-message" style="color:red" th:if="${#fields.hasErrors('amountOfMoney')}" th:errors="*{amountOfMoney}">Amount of money Error</div>
+                    </dl>
+                    <div class="add-btn_wrapper">
+                        <a class="add-btn">
+                            <input class="text" type="submit" value="   Update" />
+                            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M 24.015625 5.851562 L 9.0625 20.800781 C 8.933594 20.933594 8.71875 20.933594 8.585938 20.800781 L 0.0976562 12.3125 C -0.03125 12.179688 -0.03125 11.96875 0.0976562 11.835938 L 2.160156 9.773438 C 2.292969 9.640625 2.507812 9.640625 2.636719 9.773438 L 8.824219 15.960938 L 21.476562 3.3125 C 21.609375 3.179688 21.820312 3.179688 21.953125 3.3125 L 24.015625 5.375 C 24.148438 5.503906 24.148438 5.71875 24.015625 5.851562 Z M 24.015625 5.851562 " /></svg></span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+            <div class="delete-btn_wrapper">
+                <form th:method="delete" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
+                    <a class="delete-btn">
+                        <input class="text" type="submit" value="   Delete" />
+                        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" /></svg></span>
+                    </a>
+                </form>
+            </div>
+        </section>
     </div>
-
-    <br/>
-    <input type="submit" value="Update!"/>
-</form>
-
-<form th:method="delete" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
-    <input type="submit" value="Delete">
-</form>
-
 </body>
+
 </html>
