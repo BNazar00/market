@@ -96,6 +96,31 @@ input:focus {
   transition: all 200ms ease-out;
 }
 
+.buy-content h2 {
+  padding-bottom: 10px;
+  font-size: 1.625em;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.buy-content h3 {
+  padding-bottom: 25px;
+}
+
+.buy-content .inputbox {
+  padding-left: 50px;
+}
+
+.buy-content .inputbox-title {
+  position: relative;
+  top: 0;
+}
+
+.buy-content .inputbox-content {
+  position: relative;
+  width: 100%;
+}
+
 .add-btn_wrapper {
   padding: 30px 0 0 200px;
 }
@@ -104,7 +129,11 @@ input:focus {
   padding: 0 0 0 255px;
 }
 
-.delete-btn, .add-btn {
+.buy-btn_wrapper {
+  padding: 0 0 0 50px;
+}
+
+.delete-btn, .add-btn, .buy-btn {
   width: 150px;
   height: 50px;
   display: flex;
@@ -115,19 +144,19 @@ input:focus {
   background: #e62222;
 }
 
-.add-btn {
+.add-btn, .buy-btn {
   background: #2fe622;
 }
 
-.delete-btn, .add-btn {
+.delete-btn, .add-btn, .buy-btn {
   transition: 200ms;
 }
 
-.delete-btn span, .add-btn span {
+.delete-btn span, .add-btn span, .buy-btn span {
   transition: 200ms;
 }
 
-.delete-btn input[type=submit], .add-btn input[type=submit] {
+.delete-btn input[type=submit], .add-btn input[type=submit], .buy-btn input[type=submit] {
   cursor: pointer;
   z-index: 100;
   width: 100%;
@@ -140,13 +169,13 @@ input:focus {
   display: block;
 }
 
-.delete-btn .text, .add-btn .text {
+.delete-btn .text, .add-btn .text, .buy-btn .text {
   transform: translateX(35px);
   color: white;
   font-weight: bold;
 }
 
-.delete-btn .icon, .add-btn .icon {
+.delete-btn .icon, .add-btn .icon, .buy-btn .icon {
   position: absolute;
   border-left: 1px solid #000;
   transform: translateX(110px);
@@ -157,11 +186,11 @@ input:focus {
   justify-content: center;
 }
 
-.add-btn .icon {
+.add-btn .icon, .buy-btn .icon {
   border-left: 1px solid #224B0C;
 }
 
-.delete-btn svg, .add-btn svg {
+.delete-btn svg, .add-btn svg, .buy-btn svg {
   width: 15px;
   fill: #eee;
 }
@@ -170,21 +199,21 @@ input:focus {
   background: #ff3636;
 }
 
-.add-btn:hover {
+.add-btn:hover, .buy-btn:hover {
   background: #4ded42;
 }
 
-.delete-btn:hover .text, .add-btn:hover .text {
+.delete-btn:hover .text, .add-btn:hover .text, .buy-btn:hover .text {
   color: transparent;
 }
 
-.delete-btn:hover .icon, .add-btn:hover .icon {
+.delete-btn:hover .icon, .add-btn:hover .icon, .buy-btn:hover .icon {
   width: 150px;
   border-left: none;
   transform: translateX(0);
 }
 
-.delete-btn:focus {
+.delete-btn:focus, .add-btn:focus, .buy-btn:focus {
   outline: none;
 }
 

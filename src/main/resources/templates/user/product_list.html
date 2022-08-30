@@ -1,19 +1,57 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-        lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Market</title>
-</head>
-<body>
-<div th:each="product : ${products}">
-    <a th:href="@{product/{id}(id=${product.getId()})}" th:text="${product.getName()}">product</a>
-</div>
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/styles/css/reset.css" rel='stylesheet'>
+    <link href="/styles/css/main.min.css" rel="stylesheet">
+    <link href="../../static/styles/css/reset.css" rel='stylesheet'>
+    <link href="../../static/styles/css/main.min.css" rel="stylesheet">
 
-<ul class="container">
-    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-</ul>
+
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <span sec:authentication="principal.username"> User</span>
+        </div>
+        <button class="logout-btn" onclick="location.href='/logout'" type="button">Logout <i
+				class="fa fa-sign-out"></i></button>
+    </header>
+
+    <div class="major-block">
+        <section class="left-sec">
+            <div class="left-sec_block">
+                <a href="products">Products</a>
+                <a class="active" href="product-list">Bought products</a>
+            </div>
+        </section>
+        <section class="right-sec">
+            <div class="entities">
+                <div class="entity-item-wrapper" th:each="product : ${products}">
+                    <div class="entity-item">
+                        <a class="entity-link" th:href="@{product/{id}(id=${product.getId()})}" th:text="${product.getName()}">user@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+
+    <script>
+        $(".entity-item").mousemove(function(e, btn) {
+            const x = e.pageX - this.offsetLeft
+            const y = e.pageY - this.offsetTop
+
+            this.style.setProperty('--x', x + 'px')
+            this.style.setProperty('--y', y + 'px')
+        });
+    </script>
 </body>
+
 </html>

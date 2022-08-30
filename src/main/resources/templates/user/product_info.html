@@ -1,27 +1,82 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <meta charset="UTF-8">
     <title>Market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/styles/css/reset.css" rel='stylesheet'>
+    <link href="/styles/css/main.min.css" rel="stylesheet">
+    <link href="../../static/styles/css/reset.css" rel='stylesheet'>
+    <link href="../../static/styles/css/main.min.css" rel="stylesheet">
 </head>
+
 <body>
+    <header>
+        <div class="header-container">
+            <span sec:authentication="principal.username"> User</span>
+        </div>
+        <button class="logout-btn" onclick="location.href='/logout'" type="button">Logout <i
+				class="fa fa-sign-out"></i></button>
 
-<form th:method="POST" th:action="@{/user/products}" th:object="${product}">
-    <div style="color:red" th:text="${status}">Error</div>
-    <input type="hidden" th:value="*{id}" name="id"></input>
-    <label id="name" for="name">Name: </label>
-    <span th:text="*{name}">VALUE</span>
-    <br>
-    <label id="price" for="price">Price: </label>
-    <span th:text="*{price}">VALUE</span>
-    <br>
-    <input type="submit" value="Buy">
-</form>
+    </header>
 
-<ul class="container">
-    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-</ul>
+    <div class="major-block">
+        <section class="left-sec">
+            <div class="left-sec_block">
+                <a class="active" href="/user/products">Products</a>
+                <a href="/user/product-list">Bought products</a>
+            </div>
+        </section>
+        <section class="right-sec">
+            <form th:method="POST" th:action="@{/user/products}" th:object="${product}" id="wrap" class="input-content buy-content">
+                <h2 th:text="*{'Buy product ' + name}">Buy product name</h2>
+                <h3 style="color:red" th:text="${status}">Error</h3>
+                <div class="input-content-wrap buy-content-wrap">
+                    <input type="hidden" th:value="*{id}" name="id"></input>
+
+                    <dl class="inputbox">
+                        <dt class="inputbox-title">Product's name:</dt>
+                        <dd class="inputbox-content">
+                            <span th:text="*{name}">VALUE</span>
+                        </dd>
+                    </dl>
+                    <dl class="inputbox">
+                        <dt class="inputbox-title">Product's price:</dt>
+                        <dd class="inputbox-content">
+                            <span th:text="*{price}">PRICE</span>
+                        </dd>
+                    </dl>
+                    <div class="buy-btn_wrapper">
+                        <a class="buy-btn">
+                            <input class="text" type="submit" value="     Buy" />
+                            <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24">
+									<path
+										d="M 24.015625 5.851562 L 9.0625 20.800781 C 8.933594 20.933594 8.71875 20.933594 8.585938 20.800781 L 0.0976562 12.3125 C -0.03125 12.179688 -0.03125 11.96875 0.0976562 11.835938 L 2.160156 9.773438 C 2.292969 9.640625 2.507812 9.640625 2.636719 9.773438 L 8.824219 15.960938 L 21.476562 3.3125 C 21.609375 3.179688 21.820312 3.179688 21.953125 3.3125 L 24.015625 5.375 C 24.148438 5.503906 24.148438 5.71875 24.015625 5.851562 Z M 24.015625 5.851562 " />
+								</svg></span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+    <!-- <form th:method="POST" th:action="@{/user/products}" th:object="${product}">
+        <div style="color:red" th:text="${status}">Error</div>
+        <input type="hidden" th:value="*{id}" name="id"></input>
+        <label id="name" for="name">Name: </label>
+        <span th:text="*{name}">VALUE</span>
+        <br>
+        <label id="price" for="price">Price: </label>
+        <span th:text="*{price}">VALUE</span>
+        <br>
+        <input type="submit" value="Buy">
+    </form>
+
+    <ul class="container">
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+    </ul> -->
 </body>
+
 </html>
