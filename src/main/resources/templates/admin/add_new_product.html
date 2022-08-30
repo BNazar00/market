@@ -35,7 +35,7 @@
                 <h2>Create new product</h2>
                 <div class="input-content-wrap">
                     <dl class="inputbox">
-                        <dt class="inputbox-title">Product name</dt>
+                        <dt class="inputbox-title">Product's name</dt>
                         <dd class="inputbox-content">
                             <input th:field="*{name}" id="name" type="text" required />
                             <label for="name">name:</label>
@@ -44,7 +44,7 @@
                         <div class="error-message" style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
                     </dl>
                     <dl class="inputbox">
-                        <dt class="inputbox-title">Product price</dt>
+                        <dt class="inputbox-title">Product's price</dt>
                         <dd class="inputbox-content">
                             <input th:field="*{price}" id="price" type="text" required/>
                             <label for="price">price:</label>
