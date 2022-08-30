@@ -20,7 +20,7 @@
             <span sec:authentication="principal.username"> User</span>
             <span>| </span><span style="color: red;">ADMIN</span>
         </div>
-        <a class="logout-btn" th:href="@{/logout}">Logout  <i class="fa fa-sign-out"></i></a>
+        <button class="logout-btn" onclick="location.href='/logout'" type="button">Logout <i class="fa fa-sign-out"></i></button>
     </header>
     <i class="hwto hwto-twitter"></i>
 

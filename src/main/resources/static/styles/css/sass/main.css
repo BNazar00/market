@@ -107,7 +107,6 @@ input:focus {
 .delete-btn, .add-btn {
   width: 150px;
   height: 50px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   border: none;
@@ -129,6 +128,7 @@ input:focus {
 }
 
 .delete-btn input[type=submit], .add-btn input[type=submit] {
+  cursor: pointer;
   z-index: 100;
   width: 100%;
   background: transparent;
@@ -220,7 +220,8 @@ header {
   color: #2c2c2c;
   cursor: pointer;
   font-size: 1.1em;
-  padding: 1rem;
+  padding: 1vh;
+  background-color: transparent;
   border: 0;
   transition: all 0.5s;
   border-radius: 10px;
